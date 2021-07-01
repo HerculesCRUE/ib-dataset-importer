@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKER_IMAGE: herculescrue/dataset-importer
-  ARTIFACT_PATH: target/dataset-importer-*.jar
+  ARTIFACT_PATH: dataset-importer-back/target/dataset-importer-*.jar
   DOWNLOAD_ARTIFACT_PATH: docker-build/java
 
 jobs:
