@@ -17,4 +17,4 @@ spring:
 ## Actuator
 management:
   server:
-    port: 9320	    
+    port: 9320
