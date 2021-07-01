@@ -17,7 +17,7 @@ app:
 
   persistence:
     datasource:
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
 #      url: jdbc:mysql://localhost:3306/asio_jobs?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
@@ -48,6 +48,14 @@ app:
       endpoint-list: ?verb=ListSets
       endpoint-xml: ?verb=GetRecord&metadataPrefix=XML_ASIO&identifier=
       endpoint-ids: ?verb=ListIdentifiers&metadataPrefix=XML_ASIO&set=
+
+# CERIF  
+    cerif:      
+      endpoint: https://cris.uns.ac.rs/OAIHandlerOpenAIRECRIS
+      endpoint-list: ${app.services.cerif.endpoint}?verb=ListSets
+      endpoint-xml: ${app.services.cerif.endpoint}?verb=GetRecord&metadataPrefix=oai_cerif_openaire&identifier=
+      endpoint-ids: ${app.services.cerif.endpoint}?verb=ListIdentifiers&metadataPrefix=oai_cerif_openaire&set=
+      
       
 # Spring configuration
 spring:
