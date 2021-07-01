@@ -17,7 +17,7 @@
 	<description>UM - ASIO - dataset-importer-back</description>
 
 	<properties>
-		<artifact.packaging>war</artifact.packaging>		
+		<artifact.packaging>jar</artifact.packaging>		
 		<dataset-importer-service.version>2.0-SNAPSHOT</dataset-importer-service.version>
 		<dataset-importer-swagger.version>2.0-SNAPSHOT</dataset-importer-swagger.version>		
 		<cucumber.version>6.4.0</cucumber.version>
