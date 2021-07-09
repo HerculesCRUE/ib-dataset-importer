@@ -41,7 +41,7 @@ public class ImporterMapper {
 		importExecutionDTO.setCron(importExecutionVO.getCron());
 		importExecutionDTO.setId(importExecutionVO.getId().toString());
 		importExecutionDTO.setUser(importExecutionVO.getUser());
-		importExecutionDTO.setStartTime(importExecutionVO.getEndTime() != null ? new SimpleDateFormat("dd/MM/yyyy HH:MM:ss").format(importExecutionVO.getEndTime()):null);
+		importExecutionDTO.setStartTime(importExecutionVO.getEndTime() != null ? new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(importExecutionVO.getEndTime()):null);
 		importExecutionDTO.setType(mapJobNameToType(importExecutionVO.getType()));
 				
 		return importExecutionDTO;
