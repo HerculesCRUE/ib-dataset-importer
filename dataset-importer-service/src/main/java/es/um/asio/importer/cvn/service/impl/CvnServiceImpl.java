@@ -86,7 +86,7 @@ public class CvnServiceImpl implements CvnService {
         ResponseExtractor<CvnRootBean> cvnResponseExtractor =  new CvnResponseExtractor(restTemplate.getMessageConverters());
         
         try {
-        	restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.UTF_8));
+        	restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.ISO_8859_1));
             return restTemplate.execute(uri, HttpMethod.GET, clientHttpRequest -> clientHttpRequest.getHeaders().addAll(getHeaders()), cvnResponseExtractor);
         } catch (RestClientException restClientException) {
             logger.error("Error in cvn request {}.", uri);
