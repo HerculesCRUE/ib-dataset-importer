@@ -83,7 +83,7 @@ public class CvnServiceImpl implements CvnService {
     @Retryable(value = { CvnRequestException.class }, maxAttempts = 3, backoff = @Backoff(delay = 3000) )
     public CvnRootBean findById(Long id) {
 		String uri = cvnEndpoint.concat(cvnEndpointContext).concat("?id=" + id.toString());
-		restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.UTF_8));
+		restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.ISO_8859_1));
         ResponseExtractor<CvnRootBean> cvnResponseExtractor =  new CvnResponseExtractor(restTemplate.getMessageConverters());        
         try {        	
             return restTemplate.execute(uri, HttpMethod.GET, clientHttpRequest -> clientHttpRequest.getHeaders().addAll(getHeaders()), cvnResponseExtractor);
