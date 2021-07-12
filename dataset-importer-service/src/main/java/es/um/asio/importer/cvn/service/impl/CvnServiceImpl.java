@@ -1,6 +1,7 @@
 package es.um.asio.importer.cvn.service.impl;
 
 
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -84,6 +86,7 @@ public class CvnServiceImpl implements CvnService {
         ResponseExtractor<CvnRootBean> cvnResponseExtractor =  new CvnResponseExtractor(restTemplate.getMessageConverters());
         
         try {
+        	restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.UTF_8));
             return restTemplate.execute(uri, HttpMethod.GET, clientHttpRequest -> clientHttpRequest.getHeaders().addAll(getHeaders()), cvnResponseExtractor);
         } catch (RestClientException restClientException) {
             logger.error("Error in cvn request {}.", uri);
