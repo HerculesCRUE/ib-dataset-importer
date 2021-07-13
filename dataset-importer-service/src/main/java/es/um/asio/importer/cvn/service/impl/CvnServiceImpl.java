@@ -1,9 +1,13 @@
 package es.um.asio.importer.cvn.service.impl;
 
 
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,12 +86,13 @@ public class CvnServiceImpl implements CvnService {
     @Override
     @Retryable(value = { CvnRequestException.class }, maxAttempts = 3, backoff = @Backoff(delay = 3000) )
     public CvnRootBean findById(Long id) {
-		String uri = cvnEndpoint.concat(cvnEndpointContext).concat("?id=" + id.toString());
-		restTemplate.getMessageConverters().add(0,  new StringHttpMessageConverter(StandardCharsets.ISO_8859_1));
-        ResponseExtractor<CvnRootBean> cvnResponseExtractor =  new CvnResponseExtractor(restTemplate.getMessageConverters());        
-        try {        	
-            return restTemplate.execute(uri, HttpMethod.GET, clientHttpRequest -> clientHttpRequest.getHeaders().addAll(getHeaders()), cvnResponseExtractor);
-        } catch (RestClientException restClientException) {
+		String uri = cvnEndpoint.concat(cvnEndpointContext).concat("?id=" + id.toString());              
+        try {        	        	
+        	String response = restTemplate.getForObject(uri, String.class);        	        	
+        	JAXBContext  jaxbContext = JAXBContext.newInstance(CvnRootBean.class);                      	 
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();         
+            return (CvnRootBean) jaxbUnmarshaller.unmarshal(new StringReader(response));            
+        } catch (Exception restClientException) {
             logger.error("Error in cvn request {}.", uri);
             throw new CvnRequestException(uri, restClientException);
         }
