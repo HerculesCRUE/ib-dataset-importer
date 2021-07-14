@@ -10,8 +10,8 @@
 | Módulo         | Importador base                                              |
 | Tipo           | Software                                                     |
 | Objetivo       | Importador de datos del DataSet de Murcia para el proyecto Backend SGI (ASIO). |
-| Estado         | **100%**  |
-| Próximos pasos |  |
+| Estado         | **100%**                                                     |
+| Próximos pasos |                                                              |
 | Documentación  | [Manual de usuario](https://github.com/HerculesCRUE/ib-asio-docs-/blob/master/00-An%C3%A1lisis/Manual%20de%20usuario/Manual%20de%20usuario.md)<br />[Manual de despliegue](https://github.com/HerculesCRUE/ib-asio-composeset/blob/master/README.md)<br />[Documentación técnica](https://github.com/HerculesCRUE/ib-asio-docs-/blob/master/00-Arquitectura/arquitectura_semantica/documento_arquitectura/ASIO_Izertis_Arquitectura.md) |
 
 # ASIO - Importador de datos del DataSet de Murcia, SGI y CVN
@@ -136,7 +136,10 @@ Será preciso configurar las siguientes variables de entorno cuando se instale e
 
 ## Manual para importar datos
 
-Se debe consultar el [Manual para lanzar el importador](./Manual_para_lanzar_el_importador.md) para más información.
+Para más información consultar:
+
+- [Manual para lanzar el importador](./Manual_para_lanzar_el_importador.md)
+- [Manual borrado OAI-PMH](./manual-borrado-oai-pmh.md)
 
 
 
