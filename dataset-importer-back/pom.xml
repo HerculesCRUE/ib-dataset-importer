@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>es.um.asio</groupId>
+		<artifactId>dataset-importer</artifactId>
+		<version>2.0-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<artifactId>dataset-importer-back</artifactId>
+	<packaging>${artifact.packaging}</packaging>
+	<name>UM - ASIO - dataset-importer-back</name>
+	<description>UM - ASIO - dataset-importer-back</description>
+
+	<properties>
+		<artifact.packaging>jar</artifact.packaging>		
+		<dataset-importer-service.version>2.0-SNAPSHOT</dataset-importer-service.version>
+		<dataset-importer-swagger.version>2.0-SNAPSHOT</dataset-importer-swagger.version>		
+		<cucumber.version>6.4.0</cucumber.version>
+		<cucumber-reporting.version>5.3.1</cucumber-reporting.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- UM ASIO - dependencies -->
+		<dependency>
+			<groupId>es.um.asio</groupId>
+			<artifactId>dataset-importer-service</artifactId>
+			<version>${dataset-importer-service.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>es.um.asio</groupId>
+			<artifactId>dataset-importer-swagger</artifactId>
+			<version>${dataset-importer-swagger.version}</version>
+		</dependency>
+
+		<!-- end UM ASIO - dependencies -->
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.siegmar</groupId>
+			<artifactId>logback-gelf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Testing -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>${cucumber-reporting.version}</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>spring-boot</id>
+
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<properties>
+				<artifact.packaging>jar</artifact.packaging>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>compile</scope>
+				</dependency>
+
+				<dependency>
+					<groupId>org.mariadb.jdbc</groupId>
+					<artifactId>mariadb-java-client</artifactId>
+				</dependency>
+
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+				</dependency>
+
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+					
+						
+					<!-- cucumber 
+					<plugin>
+						<groupId>net.masterthought</groupId>
+						<artifactId>maven-cucumber-reporting</artifactId>
+						<version>3.13.0</version>
+						<executions>
+							<execution>
+								<id>execution</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<projectName>DataSetImporterCucumber</projectName>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>-->
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>tomcat</id>
+		</profile>
+
+		<profile>
+			<id>jboss</id>
+		</profile>
+	</profiles>
+
+</project>
