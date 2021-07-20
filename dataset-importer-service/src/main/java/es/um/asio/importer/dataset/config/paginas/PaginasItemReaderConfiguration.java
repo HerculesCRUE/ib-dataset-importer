@@ -219,7 +219,7 @@ public class PaginasItemReaderConfiguration {
 		return DataSetItemReader.baseReader(EditorLibro.class, "Paginas/Editores libros.xml", importDataSetProperties.getDataSetPath());
 	}
     
-    @Bean
+    @Bean(name = "empresaExplotacionPatentePaginas")
     @StepScope
     protected  ItemReader<EmpresaExplotacionPatente> empresaExplotacionPatenteReader() {
 		return DataSetItemReader.baseReader(EmpresaExplotacionPatente.class, "Paginas/Empresas explota patentes.xml", importDataSetProperties.getDataSetPath());
@@ -243,7 +243,7 @@ public class PaginasItemReaderConfiguration {
 		return DataSetItemReader.baseReader(Exposicion.class, "Paginas/Exposiciones.xml", importDataSetProperties.getDataSetPath());
 	}
     
-    @Bean
+    @Bean(name = "inventorPatentePaginas")
     @StepScope
     protected  ItemReader<InventorPatente> inventorPatenteReader() {
 		return DataSetItemReader.baseReader(InventorPatente.class, "Paginas/Inventores patentes.xml", importDataSetProperties.getDataSetPath());
@@ -297,7 +297,7 @@ public class PaginasItemReaderConfiguration {
 		return DataSetItemReader.baseReader(PalabraClaveLibro.class, "Paginas/Palabras clave libros.xml", importDataSetProperties.getDataSetPath());
 	}
     
-    @Bean
+    @Bean(name = "patentePaginas")
     @StepScope
     protected  ItemReader<Patente> patenteReader() {
 		return DataSetItemReader.baseReader(Patente.class, "Paginas/Patentes.xml", importDataSetProperties.getDataSetPath());

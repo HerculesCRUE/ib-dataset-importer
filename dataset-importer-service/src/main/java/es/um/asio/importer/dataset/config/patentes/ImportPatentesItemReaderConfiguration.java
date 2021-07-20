@@ -28,7 +28,7 @@ public class ImportPatentesItemReaderConfiguration {
 		return DataSetItemReader.baseReader(CostePatente.class, "dataset/Patentes/Costes patentes.xml", importDataSetProperties.getDataSetPath());
 	}
 		
-	@Bean
+	@Bean(name = "empresaExplotacionPatentePatentes")
 	@StepScope
 	protected  ItemReader<EmpresaExplotacionPatente> empresaExplotacionPatenteReader() {
 		return DataSetItemReader.baseReader(EmpresaExplotacionPatente.class, "dataset/Patentes/Empresas explotan patentes.xml", importDataSetProperties.getDataSetPath());
@@ -40,13 +40,13 @@ public class ImportPatentesItemReaderConfiguration {
 		return DataSetItemReader.baseReader(EmpresaTitularPatente.class, "dataset/Patentes/Empresas titulares patentes.xml", importDataSetProperties.getDataSetPath());
 	}
 	
-	@Bean
+	@Bean(name = "inventorPatentePatentes")
 	@StepScope
 	protected  ItemReader<InventorPatente> inventorPatenteReader() {
 		return DataSetItemReader.baseReader(InventorPatente.class, "dataset/Patentes/Inventores patentes.xml", importDataSetProperties.getDataSetPath());
 	}
 	
-	@Bean
+	@Bean(name = "patentePatentes")
 	@StepScope
 	protected ItemReader<Patente> patenteReader() {
 		return DataSetItemReader.baseReader(Patente.class, "dataset/Patentes/Patentes.xml",

@@ -52,7 +52,7 @@ public class ActividadesItemReaderConfiguration {
 		return DataSetItemReader.baseReader(ImpuestoRepercutidoActividad.class, "dataset/Actividades/Impuestos repercutidos actividades.xml", importDataSetProperties.getDataSetPath());
 	}	
     
-    @Bean
+    @Bean(name = "tipoActividadActividad")
     @StepScope
     protected  ItemReader<TipoActividad> tipoActividadReader() {
 		return DataSetItemReader.baseReader(TipoActividad.class, "dataset/Actividades/Tipos actividades.xml", importDataSetProperties.getDataSetPath());

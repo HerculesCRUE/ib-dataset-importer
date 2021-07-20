@@ -157,7 +157,7 @@ public class ImportProyectosItemReaderConfiguration {
 		return DataSetItemReader.baseReader(RelacionOrigenProyecto.class, "dataset/Proyectos/Relaciones origenes proyectos.xml", importDataSetProperties.getDataSetPath());
 	}
 	
-	@Bean
+	@Bean(name = "tipoActividadProyectos")
 	@StepScope
 	protected  ItemReader<TipoActividad> tipoActividadReader() {
 		return DataSetItemReader.baseReader(TipoActividad.class, "dataset/Proyectos/Tipos actividades.xml", importDataSetProperties.getDataSetPath());
