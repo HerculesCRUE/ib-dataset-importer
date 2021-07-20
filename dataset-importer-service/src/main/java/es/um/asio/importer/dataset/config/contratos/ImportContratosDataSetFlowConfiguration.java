@@ -3,6 +3,7 @@ package es.um.asio.importer.dataset.config.contratos;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import es.um.asio.domain.contratos.AnualidadContratoProyecto;
@@ -22,6 +23,9 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
 @Configuration
 public class ImportContratosDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
     
+	@Autowired
+	private ContratosItemReaderConfiguration configuration;
+	
     /**
      * Gets the Contratos flow name.
      *
@@ -40,16 +44,15 @@ public class ImportContratosDataSetFlowConfiguration extends ImportDataSetFlowCo
     @Override
     public Flow getFlow() {
         return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(AnualidadContratoProyecto.class,"dataset/Contratos/Anualidades contratos proyectos.xml"))                
-                .next(createStep(ContratoProyecto.class,"dataset/Contratos/Contratos proyectos.xml"))
-                .next(createStep(DesgloseGastoContratoProyecto.class,"dataset/Contratos/Desglose gastos contratos proyectos.xml"))
-                .next(createStep(DesgloseGastoProrrogaContrato.class,"dataset/Contratos/Desglose gastos prorrogas contratos.xml"))
-                .next(createStep(EquipoContratoProyecto.class,"dataset/Contratos/Equipos contratos proyectos.xml"))
-                .next(createStep(ImpuestoContratoProyecto.class,"dataset/Contratos/Impuestos contratos proyectos.xml"))
-                .next(createStep(ImpuestoProrrogaContrato.class,"dataset/Contratos/Impuestos prorrogas contratos.xml"))
-                .next(createStep(PatenteContratoProyecto.class,"dataset/Contratos/Patentes contratos proyectos.xml"))
-                .next(createStep(ProrrogaContratoProyecto.class,"dataset/Contratos/Prorrogas contratos proyectos.xml"))
-
+                .start(createStep(AnualidadContratoProyecto.class,configuration.anualidadContratoProyectoReader()))                
+                .next(createStep(ContratoProyecto.class,configuration.contratoProyectoReader()))
+                .next(createStep(DesgloseGastoContratoProyecto.class,configuration.desgloseGastoContratoProyectoReader()))
+                .next(createStep(DesgloseGastoProrrogaContrato.class,configuration.desgloseGastoProrrogaContratoReader()))
+                .next(createStep(EquipoContratoProyecto.class,configuration.equipoContratoProyectoReader()))
+                .next(createStep(ImpuestoContratoProyecto.class,configuration.impuestoContratoProyectoReader()))
+                .next(createStep(ImpuestoProrrogaContrato.class,configuration.impuestoProrrogaContratoReader()))
+                .next(createStep(PatenteContratoProyecto.class,configuration.patenteContratoProyectoReader()))
+                .next(createStep(ProrrogaContratoProyecto.class,configuration.prorrogaContratoProyectoReader()))
                 .build();         
     }
 }

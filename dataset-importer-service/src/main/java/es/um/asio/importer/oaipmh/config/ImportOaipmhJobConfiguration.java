@@ -25,15 +25,20 @@ public class ImportOaipmhJobConfiguration {
 	public Job importOaipmhJob(@Autowired JobBuilderFactory jobBuilderFactory, @Qualifier("JobCompletionNotificationListener") final JobExecutionListener listener,
 			@Autowired StepBuilderFactory stepBuilderFactory) {
 
-		Job job = jobBuilderFactory.get(Constants.OAIPMH_JOB_NAME).incrementer(new RunIdIncrementer())
-				.listener(listener).start(processSgi(stepBuilderFactory)).build();
+		Job job = jobBuilderFactory.get(Constants.OAIPMH_JOB_NAME)
+				.incrementer(new RunIdIncrementer())
+				.listener(listener)
+				.start(processSgi(stepBuilderFactory))
+				.build();
 
 		return job;
 	}
 
 	@Bean(name = "sgiStep")
 	protected Step processSgi(StepBuilderFactory stepBuilderFactory) {
-		return stepBuilderFactory.get("sgiStep").tasklet(getitemProcessor()).build();
+		return stepBuilderFactory.get("sgiStep")
+				.tasklet(getitemProcessor())
+				.build();
 	}
 
 	// (Processor)

@@ -3,6 +3,7 @@ package es.um.asio.importer.dataset.config.actividades;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import es.um.asio.domain.actividades.Actividad;
@@ -18,7 +19,10 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
  */
 @Configuration
 public class ImportActividadesDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
-    
+
+	@Autowired
+	private ActividadesItemReaderConfiguration configuration;
+	
     /**
      * Gets the Actividades flow name.
      *
@@ -37,12 +41,12 @@ public class ImportActividadesDataSetFlowConfiguration extends ImportDataSetFlow
     @Override
     public Flow getFlow() {
         return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(Actividad.class,"dataset/Actividades/Actividades.xml"))                
-                .next(createStep(FacturaEmitidaActividad.class,"dataset/Actividades/Facturas emitidas actividades.xml"))
-                .next(createStep(GrupoActividadesProyecto.class,"dataset/Actividades/Grupos actividades proyectos.xml"))
-                .next(createStep(GrupoActividades.class,"dataset/Actividades/Grupos actividades.xml"))     
-                .next(createStep(ImpuestoRepercutidoActividad.class,"dataset/Actividades/Impuestos repercutidos actividades.xml"))
-                .next(createStep(TipoActividad.class,"dataset/Actividades/Tipos actividades.xml"))
+                .start(createStep(Actividad.class,configuration.actividadReader()))                
+                .next(createStep(FacturaEmitidaActividad.class, configuration.facturaEmitidaActividadReader()))
+                .next(createStep(GrupoActividadesProyecto.class, configuration.grupoActividadesProyectoReader()))
+                .next(createStep(GrupoActividades.class, configuration.grupoActividadesReader()))
+                .next(createStep(ImpuestoRepercutidoActividad.class, configuration.impuestoRepercutidoActividadReader()))
+                .next(createStep(TipoActividad.class, configuration.tipoActividadReader()))                
                 .build();         
     }
 }
