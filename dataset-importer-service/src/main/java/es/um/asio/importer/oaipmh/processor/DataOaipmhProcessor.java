@@ -3,6 +3,8 @@ package es.um.asio.importer.oaipmh.processor;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.um.asio.abstractions.domain.Operation;
+import es.um.asio.domain.OperationableDataSetDataBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -68,6 +70,11 @@ public class DataOaipmhProcessor implements Tasklet {
 	private String uriFactoryXmlContext;
 
 	/**
+	 * Status deleted
+	 */
+	private final static String STATUS_DELETED = "deleted";
+
+	/**
 	 * @inheritDoc
 	 */
 	@BeforeStep
@@ -114,43 +121,50 @@ public class DataOaipmhProcessor implements Tasklet {
 
 											for (HeaderType setID : responseIds.getBody().getListIdentifiers()
 													.getHeader()) {
+
 												logger.info(
-														"Spec: " + set.getSetSpec() + ", ID: " + setID.getIdentifier());
-												try {
-													responseXml = restTemplate.getForEntity(oaiEndpoint
-															.concat(uriFactoryXmlContext).concat(setID.getIdentifier()),
-															OAIPMHtype.class);
+														"Spec: " + set.getSetSpec() + ", ID: " + setID.getIdentifier() + ", Status: " + setID.getStatus());
 
-													if (responseXml != null) {
-														OAIPMHtype bodyXML = responseXml.getBody();
+												if (STATUS_DELETED.equals(setID.getStatus())) {
+													// DELETED el elemento ha sido borrado
+													this.mappingDeletedObjects(list, setID.getIdentifier(), set.getSetSpec());
+												} else {
+													// actualización o inserción
+													try {
+														responseXml = restTemplate.getForEntity(oaiEndpoint
+																		.concat(uriFactoryXmlContext).concat(setID.getIdentifier()),
+																OAIPMHtype.class);
 
-														if (bodyXML != null) {
-															if (bodyXML.getError() != null
-																	&& bodyXML.getError().size() != 0) {
-																logger.debug(bodyXML.getError().get(0).getValue()
-																		+ " - URL: "
-																		+ oaiEndpoint.concat(uriFactoryXmlContext)
-																				.concat(setID.getIdentifier()));
-															} else if (bodyXML != null) {
+														if (responseXml != null) {
+															OAIPMHtype bodyXML = responseXml.getBody();
 
-																if (bodyXML.getIdentify() != null && bodyXML
-																		.getIdentify().getDeletedRecord() != null) {
-																	// TODO DELETE
-																	System.out.println("DELETEEEEEEEE");
-																} else {
+															if (bodyXML != null) {
+																if (bodyXML.getError() != null
+																		&& bodyXML.getError().size() != 0) {
+																	logger.debug(bodyXML.getError().get(0).getValue()
+																			+ " - URL: "
+																			+ oaiEndpoint.concat(uriFactoryXmlContext)
+																			.concat(setID.getIdentifier()));
+																} else if (bodyXML != null) {
 
-																	mappingObjects(list, bodyXML, set.getSetSpec());
+																	if (bodyXML.getIdentify() != null && bodyXML
+																			.getIdentify().getDeletedRecord() != null) {
+																		// DELETE ignore - no debería llegar a este punto
+																	} else {
 
+																		mappingObjects(list, bodyXML, set.getSetSpec());
+
+																	}
 																}
-															}
 
+															}
 														}
+
+													} catch (Exception e) {
+														logger.error(e.getMessage());
 													}
 
-												} catch (Exception e) {
-													logger.error(e.getMessage());
 												}
-
 											}
 										}
 
@@ -185,6 +199,39 @@ public class DataOaipmhProcessor implements Tasklet {
 		return RepeatStatus.FINISHED;
 	}
 
+	private void mappingDeletedObjects(List<InputData<DataSetData>> list, String identifier, String setSpec) {
+
+		List<InputData<DataSetData>> listObjects = null;
+
+		switch (setSpec) {
+			case Constants.ACTAS:
+				listObjects = ActaMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+
+			case Constants.ACTIVIDAD:
+				listObjects = ActividadMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+
+			case Constants.ACTUACION:
+				listObjects = ActuacionMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+
+			case Constants.ARTICULO:
+				listObjects = ArticuloMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+
+			case Constants.ARTICULO_ACADEMICO:
+				listObjects = ArticuloAcademicoMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+
+			case Constants.ARTICULO_CONFERENCIA:
+				listObjects = ArticuloConferenciaMapping.mappingDeleted(identifier, jobExecutionId);
+				break;
+		}
+
+		this.addListObjects(list, listObjects);
+	}
+
 	private void mappingObjects(List<InputData<DataSetData>> list, OAIPMHtype bodyXML, String setSpec) {
 
 		List<InputData<DataSetData>> listObjects = null;
@@ -192,41 +239,37 @@ public class DataOaipmhProcessor implements Tasklet {
 		switch (setSpec) {
 		case Constants.ACTAS:
 			listObjects = ActaMapping.mappingActas(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 
 		case Constants.ACTIVIDAD:
 			listObjects = ActividadMapping.mappingActividad(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 
 		case Constants.ACTUACION:
 			listObjects = ActuacionMapping.mappingActuacion(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 
 		case Constants.ARTICULO:
 			listObjects = ArticuloMapping.mappingArticulo(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 
 		case Constants.ARTICULO_ACADEMICO:
 			listObjects = ArticuloAcademicoMapping.mappingArticuloAcademico(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 
 		case Constants.ARTICULO_CONFERENCIA:
 			listObjects = ArticuloConferenciaMapping.mappingArticuloConferencia(bodyXML, jobExecutionId, this.mapper);
-			if (listObjects != null && listObjects.size() != 0)
-				list.addAll(listObjects);
 			break;
 		}
 
+		this.addListObjects(list, listObjects);
+
+	}
+
+	private void addListObjects(List<InputData<DataSetData>> list, List<InputData<DataSetData>> listObjects) {
+		if (listObjects != null && !listObjects.isEmpty()) {
+			list.addAll(listObjects);
+		}
 	}
 
 	public void setOaiEndpoint(String oaiEndpoint) {

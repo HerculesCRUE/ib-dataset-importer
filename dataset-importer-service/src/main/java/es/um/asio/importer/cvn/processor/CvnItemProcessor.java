@@ -51,13 +51,13 @@ public class CvnItemProcessor implements ItemProcessor<CvnRootBean, InputData<Da
 	 */
 	@Override
 	public InputData<DataSetData> process(CvnRootBean cvnRootBean) throws Exception {
-
+		
 		es.um.asio.domain.cvn.CvnRootBean domainCvn = mapper.map(cvnRootBean);
 		setVersion(domainCvn.getCvnItemBean());
 
 		domainCvn.setVersion(jobExecutionId);
 
-		logger.info("Processing CVN data cvn");
+		logger.info(String.format("Processing CVN data cvn. "));
 		return new InputData<>(domainCvn);
 	}
 

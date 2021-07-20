@@ -1,8 +1,13 @@
 package es.um.asio.importer.cvn.service.impl;
 
 
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +17,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -80,15 +88,24 @@ public class CvnServiceImpl implements CvnService {
     @Override
     @Retryable(value = { CvnRequestException.class }, maxAttempts = 3, backoff = @Backoff(delay = 3000) )
     public CvnRootBean findById(Long id) {
-		String uri = cvnEndpoint.concat(cvnEndpointContext).concat("?id=" + id.toString());
-        ResponseExtractor<CvnRootBean> cvnResponseExtractor =  new CvnResponseExtractor(restTemplate.getMessageConverters());
-        
-        try {
-            return restTemplate.execute(uri, HttpMethod.GET, clientHttpRequest -> clientHttpRequest.getHeaders().addAll(getHeaders()), cvnResponseExtractor);
-        } catch (RestClientException restClientException) {
+		String uri = cvnEndpoint.concat(cvnEndpointContext).concat("?id=" + id.toString());              
+        try {        	        	
+			ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity(getHeaders()),
+					String.class);
+
+			if (response.getStatusCode() == HttpStatus.OK) {
+				JAXBContext jaxbContext = JAXBContext.newInstance(CvnRootBean.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				return (CvnRootBean) jaxbUnmarshaller.unmarshal(new StringReader(response.getBody()));
+			} else {
+				logger.error("Error in cvn request {}, status {}.", uri, response.getStatusCode().name());
+				throw new CvnRequestException(uri, response.getStatusCode());
+			}
+        } catch (Exception restClientException) {
             logger.error("Error in cvn request {}.", uri);
             throw new CvnRequestException(uri, restClientException);
         }
+        
     }
     
     

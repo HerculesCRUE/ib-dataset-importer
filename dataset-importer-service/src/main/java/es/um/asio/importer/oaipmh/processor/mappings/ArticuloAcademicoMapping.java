@@ -1,17 +1,6 @@
 package es.um.asio.importer.oaipmh.processor.mappings;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Node;
-
+import es.um.asio.abstractions.domain.Operation;
 import es.um.asio.domain.DataSetData;
 import es.um.asio.domain.InputData;
 import es.um.asio.domain.sgi.model.articuloAcademico.ArticuloAcademicoSGI;
@@ -19,6 +8,16 @@ import es.um.asio.domain.sgi.model.articuloAcademico.RelArticuloAcademicoAutor;
 import es.um.asio.importer.oaipmh.mapper.OaipmhBeansMapper;
 import es.um.asio.importer.oaipmh.model.OAIPMHtype;
 import es.um.asio.importer.oaipmh.model.xsd.ArticuloAcademico;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticuloAcademicoMapping implements Serializable {
 
@@ -31,6 +30,20 @@ public class ArticuloAcademicoMapping implements Serializable {
 	 * Logger
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(ArticuloAcademicoMapping.class);
+
+	public static List<InputData<DataSetData>> mappingDeleted(String identifier, long jobExecutionId) {
+		List<InputData<DataSetData>> deletedList = new ArrayList<>();
+
+		InputData<DataSetData> data = new InputData<>();
+		ArticuloAcademicoSGI domain = new ArticuloAcademicoSGI();
+		domain.setVersion(jobExecutionId);
+		domain.setId(identifier);
+		domain.setOperation(Operation.DELETE);
+		data.setData(domain);
+		deletedList.add(data);
+
+		return deletedList;
+	}
 
 	public static List<InputData<DataSetData>> mappingArticuloAcademico(OAIPMHtype bodyXML, long jobExecutionId,
 			OaipmhBeansMapper mapper) {

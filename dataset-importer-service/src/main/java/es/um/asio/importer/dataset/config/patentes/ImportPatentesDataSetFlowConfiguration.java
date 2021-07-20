@@ -3,6 +3,7 @@ package es.um.asio.importer.dataset.config.patentes;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import es.um.asio.domain.patentes.CostePatente;
@@ -19,6 +20,9 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
  */
 @Configuration
 public class ImportPatentesDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
+	
+	@Autowired
+	private ImportPatentesItemReaderConfiguration configuration;
     
     /**
      * Gets the Patentes flow name.
@@ -38,13 +42,13 @@ public class ImportPatentesDataSetFlowConfiguration extends ImportDataSetFlowCon
     @Override
     public Flow getFlow() {
         return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(CostePatente.class,"dataset/Patentes/Costes patentes.xml"))                
-                .next(createStep(EmpresaExplotacionPatente.class,"dataset/Patentes/Empresas explotan patentes.xml"))
-                .next(createStep(EmpresaTitularPatente.class,"dataset/Patentes/Empresas titulares patentes.xml"))
-                .next(createStep(InventorPatente.class,"dataset/Patentes/Inventores patentes.xml"))     
-                .next(createStep(Patente.class,"dataset/Patentes/Patentes.xml"))
-                .next(createStep(ProteccionPatente.class,"dataset/Patentes/Protecciones patentes.xml"))
-                .next(createStep(SectorIndustrialPatente.class,"dataset/Patentes/Sectores industriales patentes.xml"))
+                .start(createStep(CostePatente.class,configuration.costePatenteReader()))               
+                .next(createStep(EmpresaExplotacionPatente.class,configuration.empresaExplotacionPatenteReader()))
+                .next(createStep(EmpresaTitularPatente.class,configuration.empresaTitularPatenteReader()))
+                .next(createStep(InventorPatente.class,configuration.inventorPatenteReader()))     
+                .next(createStep(Patente.class,configuration.patenteReader()))
+                .next(createStep(ProteccionPatente.class,configuration.proteccionPatenteReader()))
+                .next(createStep(SectorIndustrialPatente.class,configuration.sectorIndustrialPatenteReader()))
                 .build();         
     }
 }

@@ -1,5 +1,7 @@
 package es.um.asio.importer.cvn.exception;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * The Class CvnRequestException.
  */
@@ -18,5 +20,9 @@ public class CvnRequestException extends RuntimeException {
      */
     public CvnRequestException(String uri, Throwable cause) {
         super("Failed cvn request: " + uri, cause);
+    }
+    
+    public CvnRequestException(String uri, HttpStatus status) {
+        super("Failed cvn request: " + uri+ " status "+ status.name());
     }
 }

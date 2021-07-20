@@ -3,6 +3,7 @@ package es.um.asio.importer.dataset.config.goliat;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 
@@ -19,6 +20,9 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
  */
 @Configuration
 public class ImportGoliatDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
+	
+	@Autowired
+	private GoliatItemReaderConfiguration configuration;
     
     /**
      * Gets the Goliat flow name.
@@ -38,12 +42,12 @@ public class ImportGoliatDataSetFlowConfiguration extends ImportDataSetFlowConfi
     @Override
     public Flow getFlow() {
         return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(DedicacionInvestigador.class,"Goliat/Dedicacion investigador.xml"))
-                .next(createStep(NoLaborables.class,"Goliat/No laborables.xml"))
-                .next(createStep(Timesheet.class,"Goliat/Timesheets.xml"))
-                .next(createStep(WorkDescription.class,"Goliat/Work descriptions.xml"))
-                .next(createStep(WorkLog.class,"Goliat/Work logs.xml"))
-                .next(createStep(WorkPackage.class,"Goliat/Work packages.xml"))
+                .start(createStep(DedicacionInvestigador.class,configuration.dedicacionInvestigadorReader()))
+                .next(createStep(NoLaborables.class,configuration.noLaborablesReader()))
+                .next(createStep(Timesheet.class,configuration.timesheetReader()))
+                .next(createStep(WorkDescription.class,configuration.workDescriptionReader()))
+                .next(createStep(WorkLog.class,configuration.workLogReader()))
+                .next(createStep(WorkPackage.class,configuration.workPackageReader()))
                 .build();         
     }
 }

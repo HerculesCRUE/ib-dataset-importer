@@ -35,9 +35,14 @@ public class ImportDataSetJobConfiguration {
     public Job importDataSetJob(final JobBuilderFactory jobs, @Qualifier("JobCompletionNotificationListener") final JobExecutionListener listener,
             final List<ImportDataSetFlowConfigurationBase> flows) {  
         return jobs.get(Constants.DATASET_JOB_NAME)
-                .incrementer(new RunIdIncrementer()).listener(listener)
-                .start(importDataSetSplitFlow(flows.stream().map(ImportDataSetFlowConfigurationBase::getFlow).collect(Collectors.toList()).toArray(new Flow[0])))               
-                .build().build();
+                .incrementer(new RunIdIncrementer())
+                .listener(listener)                
+                .start(importDataSetSplitFlow(flows
+                		.stream()
+                		.map(ImportDataSetFlowConfigurationBase::getFlow)
+                		.collect(Collectors.toList())
+                		.toArray(new Flow[0]))).build()               
+                .build();
     }    
    
     /**
