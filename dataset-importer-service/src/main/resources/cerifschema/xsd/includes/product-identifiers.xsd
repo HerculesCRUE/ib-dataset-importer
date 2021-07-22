@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en"
-	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	From release 1.1.1 of the OpenAIRE Guidelines for CRIS Managers, see https://doi.org/10.5281/zenodo.2316420
+-->
+<xs:schema xmlns:ba="https://www.openaire.eu/cerif-profile/includes/Cerif_Base"  xmlns:co="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd" targetNamespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Product">
 	<xs:annotation>
 		<xs:documentation>This is the XML Schema component for the OpenAIRE CERIF profile 1.1 which specifies the admissible product identifiers.
 			For further description please see the main schema file.
@@ -8,22 +10,18 @@
 		</xs:documentation>
 	</xs:annotation>
 
-    <xs:include schemaLocation="../includes/cerif-base-identifiers.xsd">
-        <xs:annotation>
-            <xs:documentation>The basic types of identifiers for use with schemas.</xs:documentation>
-        </xs:annotation>
-    </xs:include>
+	<xs:import
+		namespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Base"
+		schemaLocation="cerif-base-identifiers.xsd" />
 
-	<xs:include schemaLocation="../includes/cerif-commons.xsd">
-		<xs:annotation>
-			<xs:documentation>The common building blocks for any CERIF XML Schema.</xs:documentation>
-		</xs:annotation>
-	</xs:include>
+	<xs:import
+		namespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons"
+		schemaLocation="cerif-commons.xsd" />
 
 	<xs:group name="ProductIdentifiers__Group">
 		<xs:sequence>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ARK" minOccurs="0" name="ARK" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ARK" minOccurs="0" name="ARK" type="co:cfString__Type"/>
 
             <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#DOI" minOccurs="0" name="DOI">
 				<xs:annotation>
@@ -31,18 +29,18 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
-						<xs:extension base="DOI__SimpleType">
-                            <xs:attributeGroup ref="cfExtension__AttributeGroup"/>
+						<xs:extension base="ba:DOI__SimpleType">
+                            <xs:attributeGroup ref="co:cfExtension__AttributeGroup"/>
                         </xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
             </xs:element>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#Handle" minOccurs="0" name="Handle" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#Handle" minOccurs="0" name="Handle" type="co:cfString__Type"/>
             
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URL" minOccurs="0" name="URL" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URL" minOccurs="0" name="URL" type="co:cfString__Type"/>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URN" minOccurs="0" name="URN" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URN" minOccurs="0" name="URN" type="co:cfString__Type"/>
 
 <!-- A skeleton for contributing new identifier types
 			## ideally please submit a GitHub pull request with branch called 'add-XXX'

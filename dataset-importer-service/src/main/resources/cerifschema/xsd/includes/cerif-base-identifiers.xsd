@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	From release 1.1.1 of the OpenAIRE Guidelines for CRIS Managers, see https://doi.org/10.5281/zenodo.2316420
+-->
+<xs:schema xmlns="https://www.openaire.eu/cerif-profile/includes/Cerif_Base" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd" targetNamespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Base">
     <xs:annotation>
         <xs:documentation>Common identifers for CERIF XML Schemas. To be xs:included by other XML Schemas.
             Created by the CERIF and CRIS Architecture Task Group of euroCRIS.</xs:documentation>
     </xs:annotation>
-
-    <xs:include schemaLocation="./cerif-commons.xsd">
-        <xs:annotation>
-            <xs:documentation>The common building blocks for any CERIF XML Schema.</xs:documentation>
-        </xs:annotation>
-    </xs:include>
 
     <xs:simpleType name="DOI__SimpleType">
         <xs:annotation>
@@ -98,26 +95,5 @@
             </xs:simpleType>
         </xs:union>
     </xs:simpleType>
-    
-    <xs:complexType name="ISNI__Type">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">The XML Schema type for the ISNI identifier</xs:documentation>
-			<xs:appinfo>
-				<cf:Service id="01ceb044-45b0-4ac9-91c1-d72edc5c9ed8">
-					<cf:Name xml:lang="en">The ISNI identifier</cf:Name>
-					<cf:Description xml:lang="en">The identifiers assigned to persons, legal entities and other named objects.  See http://www.isni.org/ for more details.</cf:Description>
-				</cf:Service>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
-				<xs:pattern value="\d{4} \d{4} \d{4} \d{3}[\dX]">
-					<xs:annotation>
-						<xs:documentation source="https://www.wikidata.org/wiki/Property:P213"/>
-					</xs:annotation>
-				</xs:pattern>
-			</xs:restriction>
-		</xs:simpleContent>
-	</xs:complexType>
 
 </xs:schema>

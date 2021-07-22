@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en"
-	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	From release 1.1.1 of the OpenAIRE Guidelines for CRIS Managers, see https://doi.org/10.5281/zenodo.2316420
+-->
+<xs:schema xmlns:ba="https://www.openaire.eu/cerif-profile/includes/Cerif_Base"  xmlns:co="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd" targetNamespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Publication">
 	<xs:annotation>
 		<xs:documentation>This is the XML Schema component for the OpenAIRE CERIF profile 1.1 which specifies the admissible publication identifiers.
 			For further description please see the main schema file.
@@ -14,17 +16,13 @@
         </xs:annotation>
     </xs:import>
 
-    <xs:include schemaLocation="../includes/cerif-base-identifiers.xsd">
-        <xs:annotation>
-            <xs:documentation>The basic types of identifiers for use with schemas.</xs:documentation>
-        </xs:annotation>
-    </xs:include>
+	<xs:import
+		namespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Base"
+		schemaLocation="cerif-base-identifiers.xsd" />
 
-	<xs:include schemaLocation="../includes/cerif-commons.xsd">
-		<xs:annotation>
-			<xs:documentation>The common building blocks for any CERIF XML Schema.</xs:documentation>
-		</xs:annotation>
-	</xs:include>
+	<xs:import
+		namespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons"
+		schemaLocation="cerif-commons.xsd" />
 
 	<xs:group name="PublicationIdentifiers__Group">
 		<xs:sequence>
@@ -35,20 +33,20 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
-						<xs:extension base="DOI__SimpleType">
-                            <xs:attributeGroup ref="cfExtension__AttributeGroup"/>
+						<xs:extension base="ba:DOI__SimpleType">
+                            <xs:attributeGroup ref="co:cfExtension__AttributeGroup"/>
                         </xs:extension>
 					</xs:simpleContent>
 				</xs:complexType>
             </xs:element>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#Handle" minOccurs="0" name="Handle" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#Handle" minOccurs="0" name="Handle" type="co:cfString__Type"/>
             
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#PMCID" minOccurs="0" name="PMCID" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#PMCID" minOccurs="0" name="PMCID" type="co:cfString__Type"/>
             
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ISI-Number" minOccurs="0" name="ISI-Number" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ISI-Number" minOccurs="0" name="ISI-Number" type="co:cfString__Type"/>
             
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#SCP-Number" minOccurs="0" name="SCP-Number" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#SCP-Number" minOccurs="0" name="SCP-Number" type="co:cfString__Type"/>
             
             <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ISSN" minOccurs="0" maxOccurs="unbounded" name="ISSN">
                 <xs:annotation>
@@ -56,9 +54,9 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="ISSN__SimpleType">
-                            <xs:attribute name="medium" use="optional" type="mediumType:Enum" xmlns:mediumType="http://issn.org/vocabularies/Medium"/>
-                            <xs:attributeGroup ref="cfExtension__AttributeGroup"/>
+                        <xs:extension base="ba:ISSN__SimpleType">
+                            <xs:attribute xmlns:mediumType="http://issn.org/vocabularies/Medium" name="medium" use="optional" type="mediumType:Enum"/>
+                            <xs:attributeGroup ref="co:cfExtension__AttributeGroup"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -70,19 +68,17 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:simpleContent>
-                        <xs:extension base="ISBN__SimpleType">
-                            <xs:attribute name="medium" use="optional" type="mediumType:Enum" xmlns:mediumType="http://issn.org/vocabularies/Medium"/>
-                            <xs:attributeGroup ref="cfExtension__AttributeGroup"/>
+                        <xs:extension base="ba:ISBN__SimpleType">
+                            <xs:attribute xmlns:mediumType="http://issn.org/vocabularies/Medium" name="medium" use="optional" type="mediumType:Enum"/>
+                            <xs:attributeGroup ref="co:cfExtension__AttributeGroup"/>
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URL" minOccurs="0" name="URL" type="cfString__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URL" minOccurs="0" name="URL" type="co:cfString__Type"/>
 
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URN" minOccurs="0" name="URN" type="cfString__Type"/>
-
-            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#ZDBID" minOccurs="0" name="ZDB-ID" type="ZDBID__Type"/>
+            <xs:element cflink:identifier="true" cflink:link="https://w3id.org/cerif/vocab/IdentifierTypes#URN" minOccurs="0" name="URN" type="co:cfString__Type"/>
 
 <!-- A skeleton for contributing new identifier types
 			## ideally please submit a GitHub pull request with branch called 'add-XXX'
@@ -120,25 +116,4 @@
 		</xs:sequence>
 	</xs:group>
     
-	<xs:complexType name="ZDBID__Type">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">The XML Schema type for the ZDB identifier</xs:documentation>
-			<xs:appinfo>
-				<cf:Service id="13609b36-0428-4003-8bb1-39174f10a211">
-					<cf:Name xml:lang="en">The ZDB identifier</cf:Name>
-					<cf:Description xml:lang="en">Service that provides identifiers for serials German National Serials Database.</cf:Description>
-				</cf:Service>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
-				<xs:pattern value="\d{1,7}-[Xx\d]">
-					<xs:annotation>
-						<xs:documentation source="https://www.wikidata.org/wiki/Property:P1042"/>
-					</xs:annotation>
-				</xs:pattern>
-			</xs:restriction>
-		</xs:simpleContent>
-	</xs:complexType>
-
 </xs:schema>

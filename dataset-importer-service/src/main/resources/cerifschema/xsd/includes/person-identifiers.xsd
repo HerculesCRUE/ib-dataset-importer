@@ -1,24 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en"
-	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	From release 1.1.1 of the OpenAIRE Guidelines for CRIS Managers, see https://doi.org/10.5281/zenodo.2316420
+-->
+<xs:schema xmlns="https://www.openaire.eu/cerif-profile/includes/Cerif_Persons" xmlns:co="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cf="urn:xmlns:org.eurocris.cerif" xmlns:cflink="https://w3id.org/cerif/annotations#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xml:lang="en" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://www.w3.org/2001/XMLSchema.xsd" targetNamespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Persons">
 	<xs:annotation>
 		<xs:documentation>This is the XML Schema component for the OpenAIRE CERIF profile 1.1 which specifies the admissible person identifiers.
 			For further description please see the main schema file.
 			This work is licensed under a Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/).
 		</xs:documentation>
 	</xs:annotation>
-
-	 <xs:include schemaLocation="../includes/cerif-base-identifiers.xsd">
-        <xs:annotation>
-            <xs:documentation>The basic types of identifiers for use with schemas.</xs:documentation>
-        </xs:annotation>
-    </xs:include>
 	
-	<xs:include schemaLocation="../includes/cerif-commons.xsd">
-		<xs:annotation>
-			<xs:documentation>The common building blocks for any CERIF XML Schema.</xs:documentation>
-		</xs:annotation>
-	</xs:include>
+	<xs:import
+		namespace="https://www.openaire.eu/cerif-profile/includes/Cerif_Commons"
+		schemaLocation="cerif-commons.xsd" />
 
 	<xs:group name="PersonIdentifiers__Group">
 		<xs:sequence>
@@ -110,7 +104,7 @@
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
+			<xs:restriction base="co:cfString__Type">
 				<xs:pattern value="https://orcid\.org/0000-000(1-[5-9]|2-[0-9]|3-[0-4])[0-9]{3}-[0-9]{3}[0-9X]">
 					<xs:annotation>
 						<xs:documentation source="https://support.orcid.org/knowledgebase/articles/116780-structure-of-the-orcid-identifier"/>
@@ -131,7 +125,7 @@
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
+			<xs:restriction base="co:cfString__Type">
 				<xs:pattern value="[A-Z]-[0-9]{4}-(19|20)[0-9][0-9]">
 					<xs:annotation>
 						<xs:documentation source="https://www.wikidata.org/wiki/Property:P1053"/>
@@ -152,10 +146,31 @@
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
+			<xs:restriction base="co:cfString__Type">
 				<xs:pattern value="[0-9]{10,11}">
 					<xs:annotation>
 						<xs:documentation source="https://www.wikidata.org/wiki/Property:P1153"/>
+					</xs:annotation>
+				</xs:pattern>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="ISNI__Type">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">The XML Schema type for the ISNI identifier</xs:documentation>
+			<xs:appinfo>
+				<cf:Service id="01ceb044-45b0-4ac9-91c1-d72edc5c9ed8">
+					<cf:Name xml:lang="en">The ISNI identifier</cf:Name>
+					<cf:Description xml:lang="en">The identifiers assigned to persons, legal entities and other named objects.  See http://www.isni.org/ for more details.</cf:Description>
+				</cf:Service>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:restriction base="co:cfString__Type">
+				<xs:pattern value="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{3}[0-9X]">
+					<xs:annotation>
+						<xs:documentation source="https://www.wikidata.org/wiki/Property:P213"/>
 					</xs:annotation>
 				</xs:pattern>
 			</xs:restriction>
@@ -173,7 +188,7 @@
 			</xs:appinfo>
 		</xs:annotation>
 		<xs:simpleContent>
-			<xs:restriction base="cfString__Type">
+			<xs:restriction base="co:cfString__Type">
 				<xs:pattern value="info\:eu\-repo/dai/nl/\d{8}[\dxX]">
 					<xs:annotation>
 						<xs:documentation source="https://wiki.surfnet.nl/display/standards/DAI"/>
