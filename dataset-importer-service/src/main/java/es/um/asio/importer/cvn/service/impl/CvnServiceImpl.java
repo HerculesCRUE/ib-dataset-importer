@@ -50,6 +50,7 @@ public class CvnServiceImpl implements CvnService {
      * The rest template. 
      * */
     @Autowired
+    @Qualifier("cvnRestTemplate")
     private RestTemplate restTemplate;    
     
     @Value("${app.services.cvn.endpoint}")

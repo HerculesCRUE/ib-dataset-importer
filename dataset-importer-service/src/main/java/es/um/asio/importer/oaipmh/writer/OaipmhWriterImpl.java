@@ -23,7 +23,7 @@ public class OaipmhWriterImpl implements OaipmhWriter {
 	 * Kafka template.
 	 */
 	@Autowired
-	private KafkaTemplate<String, InputData<DataSetData>> kafkaTemplate;
+	private KafkaTemplate<String, InputData<? extends DataSetData>> kafkaTemplate;
 
 	/**
 	 * Topic name
@@ -35,8 +35,8 @@ public class OaipmhWriterImpl implements OaipmhWriter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void write(List<? extends InputData<DataSetData>> datas) throws Exception {
-		for (InputData<DataSetData> data : datas) {
+	public void write(List<? extends InputData<? extends DataSetData>> datas) throws Exception {
+		for (InputData<? extends DataSetData> data : datas) {
 			logger.info("Send data to input-data kafka topic: {}", data.getClass());
 
 			kafkaTemplate.send(topicName, data);

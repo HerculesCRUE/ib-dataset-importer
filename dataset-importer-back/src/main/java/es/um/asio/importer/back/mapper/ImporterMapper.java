@@ -64,6 +64,10 @@ public class ImporterMapper {
 			return Constants.OAIPMH_JOB_NAME;
 		}
 		
+		if (type.equals("cerif")) {
+			return Constants.CERIF_JOB_NAME;
+		}
+		
 		return null;
 	}
 	
@@ -82,6 +86,10 @@ public class ImporterMapper {
 		
 		if (jobName.equals(Constants.OAIPMH_JOB_NAME)) {
 			return "oaipmh";
+		}
+		
+		if (jobName.equals(Constants.CERIF_JOB_NAME)) {
+			return "cerif";
 		}
 		
 		return null;

@@ -61,10 +61,4 @@
             <package name="es.um.asio.importer.cerif.model" />
         </schemaBindings>
     </bindings>
-    
-        <bindings schemaLocation="../xsd/OAI-PMH.xsd">
-        <schemaBindings>
-            <package name="es.um.asio.importer.cerif.oaipmh" />
-        </schemaBindings>
-    </bindings> 
 </bindings>

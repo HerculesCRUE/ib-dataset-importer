@@ -52,9 +52,9 @@ app:
 # CERIF  
     cerif:      
       endpoint: https://cris.uns.ac.rs/OAIHandlerOpenAIRECRIS
-      endpoint-list: ${app.services.cerif.endpoint}?verb=ListSets
-      endpoint-xml: ${app.services.cerif.endpoint}?verb=GetRecord&metadataPrefix=oai_cerif_openaire&identifier=
-      endpoint-ids: ${app.services.cerif.endpoint}?verb=ListIdentifiers&metadataPrefix=oai_cerif_openaire&set=
+      endpoint-list: ?verb=ListSets
+      endpoint-xml: ?verb=GetRecord&metadataPrefix=oai_cerif_openaire&identifier=
+      endpoint-ids: ?verb=ListIdentifiers&metadataPrefix=oai_cerif_openaire&set=
       
       
 # Spring configuration

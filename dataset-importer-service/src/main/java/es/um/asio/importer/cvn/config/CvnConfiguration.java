@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class CvnConfiguration {
     
-    @Bean
+    @Bean(name ="cvnRestTemplate")
     public RestTemplate cvnRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();   
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

@@ -13,6 +13,6 @@ public interface OaipmhWriter {
 	/**
 	 * {@inheritDoc}
 	 */
-	void write(List<? extends InputData<DataSetData>> datas) throws Exception;
+	void write(List<? extends InputData<? extends DataSetData>> datas) throws Exception;
 
 }
