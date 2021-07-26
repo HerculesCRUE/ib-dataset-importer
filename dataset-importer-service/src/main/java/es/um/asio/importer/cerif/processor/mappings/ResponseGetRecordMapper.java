@@ -3,7 +3,7 @@ package es.um.asio.importer.cerif.processor.mappings;
 import es.um.asio.domain.InputData;
 import es.um.asio.domain.cerif.BaseCerif;
 import es.um.asio.domain.cerif.BaseIdCerif;
-import es.um.asio.importer.oaipmh.model.MetadataType;
+import es.um.asio.importer.cerif.oaipmh.MetadataType;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

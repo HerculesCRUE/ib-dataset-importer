@@ -1,23 +1,31 @@
 package es.um.asio.importer.cerif.repository;
 
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
-import es.um.asio.importer.oaipmh.model.HeaderType;
-import es.um.asio.importer.oaipmh.model.OAIPMHtype;
-import es.um.asio.importer.oaipmh.model.RecordType;
-import es.um.asio.importer.oaipmh.model.SetType;
+import es.um.asio.importer.cerif.oaipmh.HeaderType;
+import es.um.asio.importer.cerif.oaipmh.OAIPMHtype;
+import es.um.asio.importer.cerif.oaipmh.RecordType;
+import es.um.asio.importer.cerif.oaipmh.SetType;
 
 @Repository
 public class CerfiRespositoryImpl implements CerifRepository{
@@ -89,15 +97,22 @@ public class CerfiRespositoryImpl implements CerifRepository{
 		String error = null;
 		List<T> responseContent= null;
 		try {			
-			
-			ResponseEntity<OAIPMHtype> response = restTemplate.getForEntity(endpoint, OAIPMHtype.class);
-			
-			if (response != null && response.getBody()!=null) {
-				if (response.getBody().getError() != null && !response.getBody().getError().isEmpty()) {
-					error = response.getBody().getError().get(0).getValue();
-				} else {
-					responseContent = getResponseType.apply(response.getBody());
+			ResponseEntity<String> response = restTemplate.exchange(endpoint, HttpMethod.GET, new HttpEntity(null),	String.class);			
+						
+			if (response != null && response.getStatusCode()==HttpStatus.OK) {
+				JAXBContext jaxbContext = JAXBContext.newInstance(OAIPMHtype.class);
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				JAXBElement<OAIPMHtype> jabxElement = (JAXBElement)jaxbUnmarshaller.unmarshal(new StringReader(response.getBody()));
+				OAIPMHtype type = jabxElement.getValue();
+				if (type.getError() != null && !type.getError().isEmpty()) {
+					error = type.getError().get(0).getValue();
+				} else {				
+					responseContent = getResponseType.apply(type);
 				}
+			} else {
+				logger.error(String.format("getCerifRequestContent - Invalid response. Status: %s, Body: %s",
+						response != null ? response.getStatusCode().name() : null,
+						response != null ? response.getBody() : null));
 			}
 		} catch (Exception e) {
 			logger.error(String.format("getCerifRequestContent - Unknown error. url: %s", endpoint ) , e);

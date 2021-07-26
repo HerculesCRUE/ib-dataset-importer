@@ -27,6 +27,8 @@ import es.um.asio.importer.cerif.model.Person;
 import es.um.asio.importer.cerif.model.Product;
 import es.um.asio.importer.cerif.model.Project;
 import es.um.asio.importer.cerif.model.Publication;
+import es.um.asio.importer.cerif.oaipmh.RecordType;
+import es.um.asio.importer.cerif.oaipmh.StatusType;
 import es.um.asio.importer.cerif.processor.mappings.ResponseGetRecordMapper;
 import es.um.asio.importer.cerif.processor.mappings.entity.PersonaMapper;
 import es.um.asio.importer.cerif.processor.mappings.entity.ProductoMapper;
@@ -35,8 +37,6 @@ import es.um.asio.importer.cerif.processor.mappings.entity.PublicacionMapper;
 import es.um.asio.importer.cerif.processor.mappings.entity.UnidadOrganizativaMapper;
 import es.um.asio.importer.cerif.repository.CerifRepository;
 import es.um.asio.importer.constants.Constants;
-import es.um.asio.importer.oaipmh.model.RecordType;
-import es.um.asio.importer.oaipmh.model.StatusType;
 import es.um.asio.importer.oaipmh.writer.OaipmhWriter;
 
 @Service
