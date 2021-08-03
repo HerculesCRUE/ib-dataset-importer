@@ -15,30 +15,28 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
  */
 @Configuration
 public class ImportCentrosDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
-    
+
 	@Autowired
 	private CentrosItemReaderConfiguration configuration;
-	
-    /**
-     * Gets the Centros flow name.
-     *
-     * @return the flow name
-     */
-    @Override
-    protected String getFlowName() {
-        return "importCentrosFlow";
-    }
-  
-    /**
-     * Gets Actividades {@link Flow}
-     *
-     * @return the flow
-     */
-    @Override
-    public Flow getFlow() {
-        return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(Centro.class,configuration.centroReader()))                
-                .next(createStep(Departamento.class,configuration.departamentoReader()))
-                .build();         
-    }
+
+	/**
+	 * Gets the Centros flow name.
+	 *
+	 * @return the flow name
+	 */
+	@Override
+	protected String getFlowName() {
+		return "importCentrosFlow";
+	}
+
+	/**
+	 * Gets Actividades {@link Flow}
+	 *
+	 * @return the flow
+	 */
+	@Override
+	public Flow getFlow() {
+		return new FlowBuilder<SimpleFlow>(getFlowName()).start(createStep(Centro.class, configuration.centroReader()))
+				.next(createStep(Departamento.class, configuration.departamentoReader())).build();
+	}
 }
