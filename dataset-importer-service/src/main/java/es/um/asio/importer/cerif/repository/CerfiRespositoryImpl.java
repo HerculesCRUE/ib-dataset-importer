@@ -22,10 +22,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
-import es.um.asio.importer.cerif.oaipmh.HeaderType;
-import es.um.asio.importer.cerif.oaipmh.OAIPMHtype;
-import es.um.asio.importer.cerif.oaipmh.RecordType;
-import es.um.asio.importer.cerif.oaipmh.SetType;
+import es.um.asio.importer.cerif.model.xsd.oaipmh.HeaderType;
+import es.um.asio.importer.cerif.model.xsd.oaipmh.OAIPMHtype;
+import es.um.asio.importer.cerif.model.xsd.oaipmh.RecordType;
+import es.um.asio.importer.cerif.model.xsd.oaipmh.SetType;
 
 @Repository
 public class CerfiRespositoryImpl implements CerifRepository{

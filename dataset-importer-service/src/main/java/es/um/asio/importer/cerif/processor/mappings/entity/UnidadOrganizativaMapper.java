@@ -7,8 +7,8 @@ import java.util.function.Function;
 import es.um.asio.domain.cerif.BaseCerif;
 import es.um.asio.domain.cerif.UnidadOrganizativaCerif;
 import es.um.asio.domain.cerif.UnidadOrganizativaUnidadOrganizativaCerif;
-import es.um.asio.importer.cerif.model.OrgUnit;
-import es.um.asio.importer.cerif.model.OrgUnit.PartOf;
+import es.um.asio.importer.cerif.model.xsd.OrgUnit;
+import es.um.asio.importer.cerif.model.xsd.OrgUnit.PartOf;
 
 public class UnidadOrganizativaMapper extends CerifBaseMapper {
 

@@ -8,7 +8,7 @@ import es.um.asio.domain.cerif.BaseCerif;
 import es.um.asio.domain.cerif.ProyectoCerif;
 import es.um.asio.domain.cerif.ProyectoCoordinadorCerif;
 import es.um.asio.domain.cerif.ProyectoMiembroCerif;
-import es.um.asio.importer.cerif.model.Project;
+import es.um.asio.importer.cerif.model.xsd.Project;
 
 public class ProyectoMapper extends CerifBaseMapper {
 

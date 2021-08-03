@@ -10,14 +10,14 @@ import java.util.TimeZone;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import es.um.asio.importer.cerif.model.include.commons.CfDateType;
-import es.um.asio.importer.cerif.model.include.commons.CfGenericDateTimeType;
-import es.um.asio.importer.cerif.model.include.commons.CfGenericURIClassificationType;
-import es.um.asio.importer.cerif.model.include.commons.CfLinkWithDisplayNameToPersonOrOrgUnitType;
-import es.um.asio.importer.cerif.model.include.commons.CfLinkWithDisplayNameToPersonWithAffiliationsOrOrgUnitType;
-import es.um.asio.importer.cerif.model.include.commons.CfLinkWithDisplayNameToPersonWithAffiliationsType;
-import es.um.asio.importer.cerif.model.include.commons.CfMLangAnyMixedType;
-import es.um.asio.importer.cerif.model.include.commons.CfMLangStringType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfDateType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfGenericDateTimeType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfGenericURIClassificationType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfLinkWithDisplayNameToPersonOrOrgUnitType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfLinkWithDisplayNameToPersonWithAffiliationsOrOrgUnitType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfLinkWithDisplayNameToPersonWithAffiliationsType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfMLangAnyMixedType;
+import es.um.asio.importer.cerif.model.xsd.include.commons.CfMLangStringType;
 
 public class CerifBaseMapper {
 

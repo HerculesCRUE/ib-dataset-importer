@@ -7,9 +7,9 @@ import java.util.function.Function;
 import es.um.asio.domain.cerif.BaseCerif;
 import es.um.asio.domain.cerif.PersonaCerif;
 import es.um.asio.domain.cerif.PersonaUnidadOrganizacionCerif;
-import es.um.asio.importer.cerif.model.Person;
-import es.um.asio.importer.cerif.model.Person.Affiliation;
-import es.um.asio.importer.cerif.model.Person.PersonName;
+import es.um.asio.importer.cerif.model.xsd.Person;
+import es.um.asio.importer.cerif.model.xsd.Person.Affiliation;
+import es.um.asio.importer.cerif.model.xsd.Person.PersonName;
 
 public class PersonaMapper extends CerifBaseMapper {
 

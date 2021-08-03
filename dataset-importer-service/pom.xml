@@ -223,6 +223,7 @@
 					</plugins>
 				</configuration>
 			</plugin>
+          <!-- Uncomment this to generate cerif model classes from xsd
             <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
@@ -245,6 +246,7 @@
 					<outputDirectory>${project.build.directory}/generated-sources/xjc</outputDirectory>
                 </configuration>
             </plugin>
+             -->
 		</plugins>
 	</build>
 	

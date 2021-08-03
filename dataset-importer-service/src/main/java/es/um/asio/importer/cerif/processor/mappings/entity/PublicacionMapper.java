@@ -9,9 +9,9 @@ import es.um.asio.domain.cerif.PublicacionAutorCerif;
 import es.um.asio.domain.cerif.PublicacionCerif;
 import es.um.asio.domain.cerif.PublicacionProyectoCerif;
 import es.um.asio.domain.cerif.PublicacionPublicacionCerif;
-import es.um.asio.importer.cerif.model.Publication;
-import es.um.asio.importer.cerif.model.Publication.OriginatesFrom;
-import es.um.asio.importer.cerif.model.Publication.PublishedIn;
+import es.um.asio.importer.cerif.model.xsd.Publication;
+import es.um.asio.importer.cerif.model.xsd.Publication.OriginatesFrom;
+import es.um.asio.importer.cerif.model.xsd.Publication.PublishedIn;
 
 public class PublicacionMapper extends CerifBaseMapper {
 

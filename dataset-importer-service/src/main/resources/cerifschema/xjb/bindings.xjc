@@ -3,67 +3,67 @@
     
     <bindings schemaLocation="../xsd/includes/cerif-commons.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.include.commons" />
+            <package name="es.um.asio.importer.cerif.model.xsd.include.commons" />
         </schemaBindings>
     </bindings>
     
     
     <bindings schemaLocation="../xsd/includes/person-identifiers.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.include.person" />
+            <package name="es.um.asio.importer.cerif.model.xsd.include.person" />
         </schemaBindings>
     </bindings>    
     
    <bindings schemaLocation="../xsd/vocabularies/coar_accessrights.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.accessrights" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.accessrights" />
         </schemaBindings>
     </bindings>
     
     <bindings schemaLocation="../xsd/vocabularies/coar_patent_types.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.patent" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.patent" />
         </schemaBindings>
     </bindings>
     
     <bindings schemaLocation="../xsd/vocabularies/coar_product_types.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.product" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.product" />
         </schemaBindings>
     </bindings> 
     
     <bindings schemaLocation="../xsd/vocabularies/coar_publication_types.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.publication" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.publication" />
         </schemaBindings>
     </bindings> 
     
     <bindings schemaLocation="../xsd/vocabularies/issn_medium_types.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.medium" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.medium" />
         </schemaBindings>
     </bindings> 
     
     <bindings schemaLocation="../xsd/vocabularies/openaire_funding_types.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.funding" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.funding" />
         </schemaBindings>
     </bindings> 
     
     <bindings schemaLocation="../xsd/vocabularies/openaire_service_compatibilities.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model.vocabularies.servicecompatibilities" />
+            <package name="es.um.asio.importer.cerif.model.xsd.vocabularies.servicecompatibilities" />
         </schemaBindings>
     </bindings> 
     
     <bindings schemaLocation="../xsd/openaire-cerif-profile.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.model" />
+            <package name="es.um.asio.importer.cerif.model.xsd" />
         </schemaBindings>
     </bindings>
     <bindings schemaLocation="../xsd/OAI-PMH.xsd">
         <schemaBindings>
-            <package name="es.um.asio.importer.cerif.oaipmh" />
+            <package name="es.um.asio.importer.cerif.model.xsd.oaipmh" />
         </schemaBindings>
     </bindings> 
 </bindings>

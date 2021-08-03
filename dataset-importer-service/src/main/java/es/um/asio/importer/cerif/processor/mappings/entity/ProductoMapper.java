@@ -9,8 +9,8 @@ import es.um.asio.domain.cerif.ProductoCerif;
 import es.um.asio.domain.cerif.ProductoCreadorCerif;
 import es.um.asio.domain.cerif.ProductoProyectoCerif;
 import es.um.asio.domain.cerif.ProductoPublicadorCerif;
-import es.um.asio.importer.cerif.model.Product;
-import es.um.asio.importer.cerif.model.Product.OriginatesFrom;
+import es.um.asio.importer.cerif.model.xsd.Product;
+import es.um.asio.importer.cerif.model.xsd.Product.OriginatesFrom;
 
 public class ProductoMapper extends CerifBaseMapper {
 
