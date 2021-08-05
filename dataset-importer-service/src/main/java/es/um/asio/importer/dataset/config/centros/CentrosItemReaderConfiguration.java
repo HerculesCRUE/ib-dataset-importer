@@ -11,6 +11,10 @@ import es.um.asio.domain.centros.Departamento;
 import es.um.asio.importer.config.ImportProperties;
 import es.um.asio.importer.dataset.config.DataSetItemReader;
 
+/**
+ * @class CentrosItemReaderConfiguration
+ *
+ */
 @Configuration
 public class CentrosItemReaderConfiguration {
 
