@@ -53,6 +53,7 @@ import es.um.asio.domain.paginas.ProyectoCooperacionInternacional;
 import es.um.asio.domain.paginas.RequisitoContratoPostdoctoral;
 import es.um.asio.domain.paginas.SolicitudCambioGrupoInvestigacion;
 import es.um.asio.domain.paginas.TesinaExterna;
+import es.um.asio.domain.paginas.Tesis;
 import es.um.asio.domain.paginas.TesisDirigidaUMUNoRegistrada;
 import es.um.asio.domain.paginas.TesisExterna;
 import es.um.asio.domain.paginas.TiposEventos;
@@ -407,6 +408,12 @@ public class PaginasItemReaderConfiguration {
 	protected ItemReader<DirectoresTesis> directoresTesisReader() {
 		return DataSetItemReader.baseReader(DirectoresTesis.class, "Paginas/Directores Tesis.xml",
 				importDataSetProperties.getDataSetPath());
+	}
+
+	@Bean
+	@StepScope
+	protected ItemReader<Tesis> tesisReader() {
+		return DataSetItemReader.baseReader(Tesis.class, "Paginas/Tesis.xml", importDataSetProperties.getDataSetPath());
 	}
 
 	@Bean

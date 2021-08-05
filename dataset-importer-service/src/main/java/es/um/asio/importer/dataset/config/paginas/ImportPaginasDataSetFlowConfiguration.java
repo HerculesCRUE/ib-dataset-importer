@@ -53,6 +53,7 @@ import es.um.asio.domain.paginas.ProyectoCooperacionInternacional;
 import es.um.asio.domain.paginas.RequisitoContratoPostdoctoral;
 import es.um.asio.domain.paginas.SolicitudCambioGrupoInvestigacion;
 import es.um.asio.domain.paginas.TesinaExterna;
+import es.um.asio.domain.paginas.Tesis;
 import es.um.asio.domain.paginas.TesisDirigidaUMUNoRegistrada;
 import es.um.asio.domain.paginas.TesisExterna;
 import es.um.asio.domain.paginas.TiposEventos;
@@ -143,6 +144,7 @@ public class ImportPaginasDataSetFlowConfiguration extends ImportDataSetFlowConf
 				.next(createStep(TesinaExterna.class, configuration.tesinaExternaReader()))
 				.next(createStep(TesisExterna.class, configuration.tesisExternaReader()))
 				.next(createStep(DirectoresTesis.class, configuration.directoresTesisReader()))
+				.next(createStep(Tesis.class, configuration.tesisReader()))
 				.next(createStep(TiposEventos.class, configuration.tiposEventosReader())).build();
 	}
 }

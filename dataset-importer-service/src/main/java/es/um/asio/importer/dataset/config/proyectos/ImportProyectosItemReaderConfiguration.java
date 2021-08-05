@@ -244,14 +244,14 @@ public class ImportProyectosItemReaderConfiguration {
 	@Bean
 	@StepScope
 	protected ItemReader<OrganizacionesExternas> externasOrganizationReader() {
-		return DataSetItemReader.baseReader(OrganizacionesExternas.class, "dataset/Centros/Organizaciones externas.xml",
-				importDataSetProperties.getDataSetPath());
+		return DataSetItemReader.baseReader(OrganizacionesExternas.class,
+				"dataset/Proyectos/Organizaciones externas.xml", importDataSetProperties.getDataSetPath());
 	}
 
 	@Bean
 	@StepScope
 	protected ItemReader<AreasUNESCOProyecto> areasUNESCOProyectosReader() {
-		return DataSetItemReader.baseReader(AreasUNESCOProyecto.class, "dataset/Centros/Areas UNES proyectos.xml",
+		return DataSetItemReader.baseReader(AreasUNESCOProyecto.class, "dataset/Proyectos/Areas UNESCO proyectos.xml",
 				importDataSetProperties.getDataSetPath());
 	}
 }
