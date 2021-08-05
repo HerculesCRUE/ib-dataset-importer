@@ -251,7 +251,7 @@ public class ImportProyectosItemReaderConfiguration {
 	@Bean
 	@StepScope
 	protected ItemReader<AreasUNESCOProyecto> areasUNESCOProyectosReader() {
-		return DataSetItemReader.baseReader(AreasUNESCOProyecto.class, "dataset/Proyectos/Areas UNESCO proyectos.xml",
+		return DataSetItemReader.baseReader(AreasUNESCOProyecto.class, "dataset/Proyectos/Areas UNESCO Proyectos.xml",
 				importDataSetProperties.getDataSetPath());
 	}
 }
