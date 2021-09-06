@@ -36,7 +36,7 @@ public class CerfiRespositoryImpl implements CerifRepository{
 	@Qualifier("restTemplateHttps")
 	private RestTemplate restTemplate;
 
-	@Value("${app.services.oai.endpoint}")
+	@Value("${app.services.cerif.endpoint}")
 	private String endPoint;
 	
 	/** The CERIF factory endpoint. */
