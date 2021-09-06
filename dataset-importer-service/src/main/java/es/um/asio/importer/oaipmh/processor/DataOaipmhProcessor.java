@@ -3,8 +3,6 @@ package es.um.asio.importer.oaipmh.processor;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.um.asio.abstractions.domain.Operation;
-import es.um.asio.domain.OperationableDataSetDataBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -122,18 +120,21 @@ public class DataOaipmhProcessor implements Tasklet {
 											for (HeaderType setID : responseIds.getBody().getListIdentifiers()
 													.getHeader()) {
 
-												logger.info(
-														"Spec: " + set.getSetSpec() + ", ID: " + setID.getIdentifier() + ", Status: " + setID.getStatus());
+												logger.info("Spec: " + set.getSetSpec() + ", ID: "
+														+ setID.getIdentifier() + ", Status: " + setID.getStatus());
 
 												if (STATUS_DELETED.equals(setID.getStatus())) {
 													// DELETED el elemento ha sido borrado
-													this.mappingDeletedObjects(list, setID.getIdentifier(), set.getSetSpec());
+													this.mappingDeletedObjects(list, setID.getIdentifier(),
+															set.getSetSpec());
 												} else {
 													// actualización o inserción
 													try {
-														responseXml = restTemplate.getForEntity(oaiEndpoint
-																		.concat(uriFactoryXmlContext).concat(setID.getIdentifier()),
-																OAIPMHtype.class);
+														responseXml = restTemplate
+																.getForEntity(
+																		oaiEndpoint.concat(uriFactoryXmlContext)
+																				.concat(setID.getIdentifier()),
+																		OAIPMHtype.class);
 
 														if (responseXml != null) {
 															OAIPMHtype bodyXML = responseXml.getBody();
@@ -144,12 +145,13 @@ public class DataOaipmhProcessor implements Tasklet {
 																	logger.debug(bodyXML.getError().get(0).getValue()
 																			+ " - URL: "
 																			+ oaiEndpoint.concat(uriFactoryXmlContext)
-																			.concat(setID.getIdentifier()));
+																					.concat(setID.getIdentifier()));
 																} else if (bodyXML != null) {
 
 																	if (bodyXML.getIdentify() != null && bodyXML
 																			.getIdentify().getDeletedRecord() != null) {
-																		// DELETE ignore - no debería llegar a este punto
+																		// DELETE ignore - no debería llegar a este
+																		// punto
 																	} else {
 
 																		mappingObjects(list, bodyXML, set.getSetSpec());
@@ -204,29 +206,29 @@ public class DataOaipmhProcessor implements Tasklet {
 		List<InputData<DataSetData>> listObjects = null;
 
 		switch (setSpec) {
-			case Constants.ACTAS:
-				listObjects = ActaMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ACTAS:
+			listObjects = ActaMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 
-			case Constants.ACTIVIDAD:
-				listObjects = ActividadMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ACTIVIDAD:
+			listObjects = ActividadMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 
-			case Constants.ACTUACION:
-				listObjects = ActuacionMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ACTUACION:
+			listObjects = ActuacionMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 
-			case Constants.ARTICULO:
-				listObjects = ArticuloMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ARTICULO:
+			listObjects = ArticuloMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 
-			case Constants.ARTICULO_ACADEMICO:
-				listObjects = ArticuloAcademicoMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ARTICULO_ACADEMICO:
+			listObjects = ArticuloAcademicoMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 
-			case Constants.ARTICULO_CONFERENCIA:
-				listObjects = ArticuloConferenciaMapping.mappingDeleted(identifier, jobExecutionId);
-				break;
+		case Constants.ARTICULO_CONFERENCIA:
+			listObjects = ArticuloConferenciaMapping.mappingDeleted(identifier, jobExecutionId);
+			break;
 		}
 
 		this.addListObjects(list, listObjects);

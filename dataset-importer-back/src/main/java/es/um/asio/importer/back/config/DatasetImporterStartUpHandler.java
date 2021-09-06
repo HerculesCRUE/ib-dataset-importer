@@ -7,15 +7,19 @@ import org.springframework.stereotype.Component;
 
 import es.um.asio.importer.service.ImporterSchedulerService;
 
+/**
+ * DatasetImporterStartUpHandler
+ *
+ */
 @Component
 public class DatasetImporterStartUpHandler implements ApplicationRunner {
 
 	@Autowired
 	private ImporterSchedulerService importerSchedulerService;
-	
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		importerSchedulerService.scheduleActiveImporters();		
+		importerSchedulerService.scheduleActiveImporters();
 	}
-	
+
 }

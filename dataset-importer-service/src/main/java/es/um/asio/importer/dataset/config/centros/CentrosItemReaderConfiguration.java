@@ -11,22 +11,28 @@ import es.um.asio.domain.centros.Departamento;
 import es.um.asio.importer.config.ImportProperties;
 import es.um.asio.importer.dataset.config.DataSetItemReader;
 
+/**
+ * @class CentrosItemReaderConfiguration
+ *
+ */
 @Configuration
 public class CentrosItemReaderConfiguration {
 
 	@Autowired
-	protected ImportProperties importDataSetProperties;	
-	   
-    @Bean
-    @StepScope
-    protected  ItemReader<Centro> centroReader() {
-		return DataSetItemReader.baseReader(Centro.class, "dataset/Centros/Centros.xml", importDataSetProperties.getDataSetPath());
-	} 
+	protected ImportProperties importDataSetProperties;
 
-    @Bean
-    @StepScope
-    protected  ItemReader<Departamento> departamentoReader() {
-		return DataSetItemReader.baseReader(Departamento.class, "dataset/Centros/Departamentos.xml", importDataSetProperties.getDataSetPath());
-	} 
-	
+	@Bean
+	@StepScope
+	protected ItemReader<Centro> centroReader() {
+		return DataSetItemReader.baseReader(Centro.class, "dataset/Centros/Centros.xml",
+				importDataSetProperties.getDataSetPath());
+	}
+
+	@Bean
+	@StepScope
+	protected ItemReader<Departamento> departamentoReader() {
+		return DataSetItemReader.baseReader(Departamento.class, "dataset/Centros/Departamentos.xml",
+				importDataSetProperties.getDataSetPath());
+	}
+
 }
