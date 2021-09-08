@@ -23,7 +23,7 @@ public class ResponseGetRecordMapper {
 
 	@Getter
 	public enum XsdContextPaths {
-		OAIPMH("es.um.asio.importer.oaipmh.model.xsd"), CERIF("es.um.asio.importer.cerif.model");
+		OAIPMH("es.um.asio.importer.oaipmh.model.xsd"), CERIF("es.um.asio.importer.cerif.model.xsd");
 
 		private String path;
 
