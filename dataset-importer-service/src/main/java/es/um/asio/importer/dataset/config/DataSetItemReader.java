@@ -31,7 +31,7 @@ public class DataSetItemReader {
 		final DataConverter<T> converter = new DataConverter<>();
 		converter.setFieldSetMapper(new DataSetFieldSetMapper<T>(type));
 		converter.setPropertiesBinding(propertiesBinding);
-
+		converter.getFieldSetMapper().setDistanceLimit(3);
 		final DataSetMarshaller<T> ummarshaller = new DataSetMarshaller<>(type);
 		ummarshaller.setConverters(converter);
 
