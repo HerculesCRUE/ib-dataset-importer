@@ -24,6 +24,7 @@ public class DataSetFieldSetMapper<T> extends BeanWrapperFieldSetMapper<T> {
         super();
         this.setTargetType(targetClass);        
         this.setConversionService(createConversionService());
+        this.setDistanceLimit(3);
     }
     
     /**
