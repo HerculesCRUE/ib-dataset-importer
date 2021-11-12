@@ -55,7 +55,7 @@ app:
       endpoint-list: ?verb=ListSets
       endpoint-xml: ?verb=GetRecord&metadataPrefix=oai_cerif_openaire&identifier=
       endpoint-ids: ?verb=ListIdentifiers&metadataPrefix=oai_cerif_openaire&set=
-      
+      endpoint-token: ?verb=ListIdentifiers&resumptionToken=
       
 # Spring configuration
 spring:
