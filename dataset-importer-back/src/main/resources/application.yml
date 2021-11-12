@@ -56,7 +56,7 @@ app:
       endpoint-xml: ?verb=GetRecord&metadataPrefix=oai_cerif_openaire&identifier=
       endpoint-ids: ?verb=ListIdentifiers&metadataPrefix=oai_cerif_openaire&set=
       endpoint-token: ?verb=ListIdentifiers&resumptionToken=
-      
+      tokenCount: 50
 # Spring configuration
 spring:
   batch:    

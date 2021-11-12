@@ -58,6 +58,10 @@ public class CerfiRespositoryImpl implements CerifRepository {
 	@Value("${app.services.cerif.endpoint-xml}")
 	private String endPointGetEntityDetailsContext;
 
+	/** The uri factory endpoint. */
+	@Value("${app.services.cerif.tokenCount}")
+	private Integer countToken;
+
 	@Override
 	public List<SetType> getSets() {
 		Function<OAIPMHtype, List<SetType>> getContent = (content) -> {
@@ -79,7 +83,9 @@ public class CerfiRespositoryImpl implements CerifRepository {
 				listFinal.addAll(content.getListIdentifiers().getHeader());
 
 				ResumptionTokenType token = content.getListIdentifiers().getResumptionToken();
-				while (token != null && StringUtils.isNotEmpty(token.getValue())) {
+				Integer count = 0;
+				while (token != null && StringUtils.isNotEmpty(token.getValue()) && count < countToken) {
+					count++;
 					OAIPMHtype oaipmhtype = getNexTPageResumeToken(
 							endPoint.concat(endPointGetNextTokenPage.concat(token.getValue())));
 
