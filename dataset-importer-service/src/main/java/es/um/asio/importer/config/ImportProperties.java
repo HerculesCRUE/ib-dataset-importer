@@ -13,6 +13,8 @@ public class ImportProperties {
        
     private String oaiEndpoint;
     
+    private String cerifEndpoint;
+    
     @Autowired
     private Environment env;
           
@@ -39,4 +41,14 @@ public class ImportProperties {
 	public void setOaiEndpoint(String oaiEndpoint) {
 		this.oaiEndpoint = oaiEndpoint;
 	}
+
+	public String getCerifEndpoint() {
+		return cerifEndpoint == null ? env.getProperty("app.services.cerif.endpoint") : cerifEndpoint;
+	}
+
+	public void setCerifEndpoint(String cerifEndpoint) {
+		this.cerifEndpoint = cerifEndpoint;
+	}
+	
+	
 }

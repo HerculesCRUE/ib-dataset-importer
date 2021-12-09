@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import es.um.asio.domain.importer.ImporterSchedule;
+import es.um.asio.importer.cerif.repository.CerifRepository;
 import es.um.asio.importer.config.ImportProperties;
 import es.um.asio.importer.constants.Constants;
 import es.um.asio.importer.cvn.service.CvnService;
@@ -58,6 +59,9 @@ public class ImporterSchedulerJob implements Job {
 	
 	@Autowired
 	private DataOaipmhProcessor dataOaipmhProcessor;
+	
+	@Autowired
+	private CerifRepository cerifRepository;
 
 	@Autowired
 	private ImportProperties importProperties;
@@ -128,6 +132,10 @@ public class ImporterSchedulerJob implements Job {
 		case Constants.OAIPMH_JOB_NAME:
 			importProperties.setOaiEndpoint(importerSchedule.getParams());
 			dataOaipmhProcessor.setOaiEndpoint(importProperties.getOaiEndpoint());
+			return batchJobs;
+		case Constants.CERIF_JOB_NAME:
+			importProperties.setCerifEndpoint(importerSchedule.getParams());
+			cerifRepository.setEndPoint(importProperties.getCerifEndpoint());
 			return batchJobs;
 		default:
 			return batchJobs;

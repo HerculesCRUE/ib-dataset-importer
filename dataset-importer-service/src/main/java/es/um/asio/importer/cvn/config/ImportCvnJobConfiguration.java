@@ -41,7 +41,10 @@ public class ImportCvnJobConfiguration {
 	public Job importCvnJob(final JobBuilderFactory jobs, @Qualifier("CvnStep") final Step s1,
 			@Qualifier("CvnJobExecutorListener") final JobExecutionListener listener) {
 
-		return jobs.get(Constants.CVN_JOB_NAME).incrementer(new RunIdIncrementer()).listener(listener).start(s1)
+		return jobs.get(Constants.CVN_JOB_NAME)
+				.incrementer(new RunIdIncrementer())
+				.listener(listener)
+				.start(s1)
 				.build();
 	}
 
@@ -57,9 +60,13 @@ public class ImportCvnJobConfiguration {
 	@Bean
 	@Qualifier("CvnStep")
 	public Step cvnStep(final StepBuilderFactory stepBuilderFactory) {
-		return stepBuilderFactory.get("cvnStep").<CvnRootBean, InputData<DataSetData>>chunk(10).reader(getReader())
-				.processor(getCvnItemProcessor()).writer(getWriter()).faultTolerant()
-				.skipPolicy(new CvnRequestExceptionSkipPolicy()).listener(new CvnSkipListener()).build();
+		return stepBuilderFactory.get("cvnStep")
+				.<CvnRootBean, InputData<DataSetData>>chunk(10)
+				.reader(getReader())
+				.processor(getCvnItemProcessor())
+				.writer(getWriter())
+				.faultTolerant().skipPolicy(new CvnRequestExceptionSkipPolicy()).listener(new CvnSkipListener())
+				.build();
 	}
 
 	/**

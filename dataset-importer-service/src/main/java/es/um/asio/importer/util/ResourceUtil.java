@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 public class ResourceUtil {
+	
+    private static final Logger logger = LoggerFactory.getLogger(ResourceUtil.class);
     
     private ResourceUtil() {
         throw new IllegalStateException("Utility class");
@@ -34,6 +38,7 @@ public class ResourceUtil {
         var filesInDirectorypattern = getParentPath(baseResource).toString().concat("*");
         for (Resource resource : new PathMatchingResourcePatternResolver().getResources(filesInDirectorypattern)) {
             if(RelatedFileMatcher.match(fileName, resource.getFilename())){
+            	logger.info(String.format("getRelatedResources - Dataset path to import: %s",filePath));
                 resources.add(resource);
             }
         }        

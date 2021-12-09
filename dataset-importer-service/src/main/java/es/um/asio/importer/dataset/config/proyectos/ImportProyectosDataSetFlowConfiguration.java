@@ -3,9 +3,11 @@ package es.um.asio.importer.dataset.config.proyectos;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import es.um.asio.domain.proyectos.AnualidadProyecto;
+import es.um.asio.domain.proyectos.AreasUNESCOProyecto;
 import es.um.asio.domain.proyectos.DatosAnualidadProyecto;
 import es.um.asio.domain.proyectos.DependenciaProyecto;
 import es.um.asio.domain.proyectos.EquipoProyecto;
@@ -20,6 +22,7 @@ import es.um.asio.domain.proyectos.ImporteProyecto;
 import es.um.asio.domain.proyectos.ImpuestoRepercutidoProyecto;
 import es.um.asio.domain.proyectos.IngresoProyecto;
 import es.um.asio.domain.proyectos.JustificacionPrevistaProyecto;
+import es.um.asio.domain.proyectos.OrganizacionesExternas;
 import es.um.asio.domain.proyectos.OrigenProyecto;
 import es.um.asio.domain.proyectos.Proyecto;
 import es.um.asio.domain.proyectos.ProyectoDependenciaProyecto;
@@ -39,54 +42,59 @@ import es.um.asio.importer.dataset.config.ImportDataSetFlowConfigurationBase;
  * Class to generate Proyectos {@link Flow}
  */
 @Configuration
-public class ImportProyectosDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase { 
-    
-    /**
-     * Gets the Proyectos flow name.
-     *
-     * @return the flow name
-     */
-    @Override
-    protected String getFlowName() {
-        return "importProyectosFlow";
-    }
-    
-    /**
-     * Gets Proyectos {@link Flow}
-     *
-     * @return the flow
-     */
-    @Override
-    public Flow getFlow() {
-        return new FlowBuilder<SimpleFlow>(getFlowName())
-                .start(createStep(AnualidadProyecto.class,"dataset/Proyectos/Anualidades proyectos.xml"))                
-                .next(createStep(DatosAnualidadProyecto.class,"dataset/Proyectos/Datos anualidades proyectos.xml"))        
-                .next(createStep(DependenciaProyecto.class,"dataset/Proyectos/Dependencias proyectos.xml"))
-                .next(createStep(EquipoProyecto.class,"dataset/Proyectos/Equipos proyectos.xml"))
-                .next(createStep(FacturaEmitirProyecto.class,"dataset/Proyectos/Facturas emitir proyectos.xml"))      
-                .next(createStep(FacturaProyecto.class,"dataset/Proyectos/Facturas proyectos.xml"))      
-                .next(createStep(FechaProyecto.class,"dataset/Proyectos/Fechas proyectos.xml"))
-                .next(createStep(FechasEquiposProyectos.class,"dataset/Proyectos/Fechas equipos proyectos.xml"))
-                .next(createStep(FinanciacionProyecto.class,"dataset/Proyectos/Financiacion proyectos.xml"))      
-                .next(createStep(GastoPrevistoProyecto.class,"dataset/Proyectos/Gastos previstos proyectos.xml"))      
-                .next(createStep(GastoProyecto.class,"dataset/Proyectos/Gastos proyectos.xml"))      
-                .next(createStep(ImporteProyecto.class,"dataset/Proyectos/Importes proyectos.xml"))      
-                .next(createStep(ImpuestoRepercutidoProyecto.class,"dataset/Proyectos/Impuestos repercutidos proyectos.xml"))      
-                .next(createStep(IngresoProyecto.class,"dataset/Proyectos/Ingresos proyectos.xml"))      
-                .next(createStep(JustificacionPrevistaProyecto.class,"dataset/Proyectos/Justificaciones previstas proyectos.xml"))      
-                .next(createStep(OrigenProyecto.class,"dataset/Proyectos/Origenes proyectos.xml"))      
-                .next(createStep(Proyecto.class,"dataset/Proyectos/Proyectos.xml"))      
-                .next(createStep(ProyectoDependenciaProyecto.class,"dataset/Proyectos/Proyectos dependencias proyectos.xml"))      
-                .next(createStep(RelacionOrigenProyecto.class,"dataset/Proyectos/Relaciones origenes proyectos.xml"))      
-                .next(createStep(TipoActividad.class,"dataset/Proyectos/Tipos actividades.xml"))      
-                .next(createStep(TipoAuditoriaProyecto.class,"dataset/Proyectos/Tipos auditorias proyectos.xml"))      
-                .next(createStep(TipoFinanciacion.class,"dataset/Proyectos/Tipos financiacion.xml"))      
-                .next(createStep(TipoFuenteFinanciacion.class,"dataset/Proyectos/Tipos fuentes financiacion.xml"))      
-                .next(createStep(TipoGastoGenerico.class,"dataset/Proyectos/Tipos gastos genericos.xml"))      
-                .next(createStep(TipoIngresoGenerico.class,"dataset/Proyectos/Tipos ingresos genericos.xml"))      
-                .next(createStep(TipoMotivoCambioFecha.class,"dataset/Proyectos/Tipos motivos cambios fechas.xml"))      
-                .next(createStep(TipoOrigenProyecto.class,"dataset/Proyectos/Tipos origenes proyectos.xml"))      
-                .next(createStep(TipoRechazoJustificacion.class,"dataset/Proyectos/Tipos rechazos justificacion.xml"))             
-                .build();         
-    }
+public class ImportProyectosDataSetFlowConfiguration extends ImportDataSetFlowConfigurationBase {
+
+	@Autowired
+	private ImportProyectosItemReaderConfiguration configuration;
+
+	/**
+	 * Gets the Proyectos flow name.
+	 *
+	 * @return the flow name
+	 */
+	@Override
+	protected String getFlowName() {
+		return "importProyectosFlow";
+	}
+
+	/**
+	 * Gets Proyectos {@link Flow}
+	 *
+	 * @return the flow
+	 */
+	@Override
+	public Flow getFlow() {
+		return new FlowBuilder<SimpleFlow>(getFlowName())
+				.start(createStep(AnualidadProyecto.class, configuration.anualidadProyectoReader()))
+				.next(createStep(DatosAnualidadProyecto.class, configuration.datosAnualidadProyecto()))
+				.next(createStep(DependenciaProyecto.class, configuration.dependenciaProyectoReader()))
+				.next(createStep(EquipoProyecto.class, configuration.equipoProyectoReader()))
+				.next(createStep(FacturaEmitirProyecto.class, configuration.facturaEmitirProyectoReader()))
+				.next(createStep(FacturaProyecto.class, configuration.facturaProyectoReader()))
+				.next(createStep(FechaProyecto.class, configuration.fechaProyectoReader()))
+				.next(createStep(FechasEquiposProyectos.class, configuration.fechasEquiposProyectosReader()))
+				.next(createStep(FinanciacionProyecto.class, configuration.financiacionProyectoReader()))
+				.next(createStep(GastoPrevistoProyecto.class, configuration.gastoPrevistoProyectoReader()))
+				.next(createStep(GastoProyecto.class, configuration.gastoProyectoReader()))
+				.next(createStep(ImporteProyecto.class, configuration.importeProyectoReader()))
+				.next(createStep(ImpuestoRepercutidoProyecto.class, configuration.impuestoRepercutidoProyectoReader()))
+				.next(createStep(IngresoProyecto.class, configuration.ingresoProyectoReader()))
+				.next(createStep(JustificacionPrevistaProyecto.class,
+						configuration.justificacionPrevistaProyectoReader()))
+				.next(createStep(OrigenProyecto.class, configuration.origenProyectoReader()))
+				.next(createStep(Proyecto.class, configuration.proyectoReader()))
+				.next(createStep(ProyectoDependenciaProyecto.class, configuration.proyectoDependenciaProyectoReader()))
+				.next(createStep(RelacionOrigenProyecto.class, configuration.relacionOrigenProyectoReader()))
+				.next(createStep(TipoActividad.class, configuration.tipoActividadReader()))
+				.next(createStep(TipoAuditoriaProyecto.class, configuration.tipoAuditoriaProyectoReader()))
+				.next(createStep(TipoFinanciacion.class, configuration.tipoFinanciacionReader()))
+				.next(createStep(TipoFuenteFinanciacion.class, configuration.tipoFuenteFinanciacionReader()))
+				.next(createStep(TipoGastoGenerico.class, configuration.tipoGastoGenericoReader()))
+				.next(createStep(TipoIngresoGenerico.class, configuration.tipoIngresoGenericoReader()))
+				.next(createStep(TipoMotivoCambioFecha.class, configuration.tipoMotivoCambioFechaReader()))
+				.next(createStep(TipoOrigenProyecto.class, configuration.tipoOrigenProyectoReader()))
+				.next(createStep(TipoRechazoJustificacion.class, configuration.tipoRechazoJustificacionReader()))
+				.next(createStep(OrganizacionesExternas.class, configuration.externasOrganizationReader()))
+				.next(createStep(AreasUNESCOProyecto.class, configuration.areasUNESCOProyectosReader())).build();
+	}
 }
